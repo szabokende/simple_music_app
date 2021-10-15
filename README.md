@@ -4,8 +4,8 @@ The Last.fm API application made by Kende Szabo
 
 ## How to run it
  1. pick a search category(artist, album, track) from the dropdown menu the enter a keyword and press enter (the magnifing glass icon will not search).
- 2. tap on a result and the detail page will show the details about the result
- 3. on the detail pages tap on "Visit Last.fm page of..."  button and it will open a browser with the Last.fm url attached to that result.
+ 2. tap on a result, and the detail page will show the details about the result
+ 3. on the detail pages, tap on "Visit Last.fm page of..."  button and it will open a browser with the Last.fm url attached to that result.
 
 
  - The app was tested in debug mode only. On iOS simulator(iPhone 12, iOS 15) and an android physical device (Samsung Galaxy S9).
