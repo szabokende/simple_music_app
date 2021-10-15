@@ -1,10 +1,12 @@
 
 import 'package:simple_music_app/model/models/album.dart';
 import 'package:simple_music_app/model/services/service.dart';
+// ignore: library_prefixes
 import 'package:simple_music_app/utils/constants.dart' as Constants;
 
+// This class makes a request to the last.fm API using the service class and then converts the API response json into an album list
 class AlbumRepository {
-  Service _service = Service();
+  final Service _service = Service();
 
   Future<List<Album>> fetchAlbumList(String keyWord) async {
     Uri uri = Uri.http(

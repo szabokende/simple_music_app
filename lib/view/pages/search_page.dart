@@ -7,8 +7,6 @@ import 'package:simple_music_app/view_model/album_view_model.dart';
 import 'package:simple_music_app/view_model/artist_view_model.dart';
 import 'package:simple_music_app/view_model/track_view_model.dart';
 
-
-
 class SearchPage extends StatefulWidget {
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -20,47 +18,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  void callAPI(String keyWord) {
-    switch (_searchType) {
-      case 'ARTIST':
-        {
-          Provider.of<ArtistViewModel>(context, listen: false)
-              .fetchArtistData(keyWord);
-        }
-        break;
-      case 'ALBUM':
-        {
-          Provider.of<AlbumViewModel>(context, listen: false)
-              .fetchAlbumData(keyWord);
-        }
-        break;
-      case 'TRACK':
-        {
-          Provider.of<TrackViewModel>(context, listen: false)
-              .fetchTrackData(keyWord);
-        }
-        break;
-    }
-  }
-
-  Widget switchResultList() {
-    switch (_searchType) {
-      case 'ARTIST':
-        {
-          return ArtistList();
-        }
-      case 'ALBUM':
-        {
-          return AlbumList();
-        }
-      case 'TRACK':
-        {
-          return TrackList();
-        }
-    }
-    return const Text('Search for something');
   }
 
   @override
@@ -111,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 10),
                     child: DropdownButton<String>(
                       value: _searchType,
                       elevation: 16,
@@ -142,5 +99,46 @@ class _SearchPageState extends State<SearchPage> {
         ),
       );
     });
+  }
+
+  void callAPI(String keyWord) {
+    switch (_searchType) {
+      case 'ARTIST':
+        {
+          Provider.of<ArtistViewModel>(context, listen: false)
+              .fetchArtistData(keyWord);
+        }
+        break;
+      case 'ALBUM':
+        {
+          Provider.of<AlbumViewModel>(context, listen: false)
+              .fetchAlbumData(keyWord);
+        }
+        break;
+      case 'TRACK':
+        {
+          Provider.of<TrackViewModel>(context, listen: false)
+              .fetchTrackData(keyWord);
+        }
+        break;
+    }
+  }
+
+  Widget switchResultList() {
+    switch (_searchType) {
+      case 'ARTIST':
+        {
+          return ArtistList();
+        }
+      case 'ALBUM':
+        {
+          return AlbumList();
+        }
+      case 'TRACK':
+        {
+          return TrackList();
+        }
+    }
+    return const Text('Search for something');
   }
 }

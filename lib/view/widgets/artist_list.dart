@@ -5,13 +5,28 @@ import 'package:simple_music_app/model/apis/api_response.dart';
 import 'package:simple_music_app/view_model/artist_view_model.dart';
 
 class ArtistList extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ArtistViewModel>(
+        builder: (context, artistViewModel, child) {
+          return Container(
+            child: buildArtistListWidget(
+              context,
+              artistViewModel.response,
+            ),
+          );
+        });
+  }
+
   Widget buildArtistListWidget(
     BuildContext context,
     ApiResponse apiResponse,
   ) {
+    //Displays UI based on the apiResponse.status (CircularProgressIndicator/Content/Error message/ Initial welcome text)
     switch (apiResponse.status) {
       case Status.LOADING:
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       case Status.COMPLETED:
@@ -29,29 +44,29 @@ class ArtistList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(right: 20, left:20),
                       child: Text("Artists",style: Theme.of(context).textTheme.headline6,),
                     ),
-                    FaIcon(FontAwesomeIcons.user)
+                    const FaIcon(FontAwesomeIcons.user)
                   ],
                 ),
-                Divider(
+                const Divider(
                   thickness: 3,
                 ),
                 Expanded(
                   child: ListView.builder(
-                    //physics: const NeverScrollableScrollPhysics(),
                     itemCount: apiResponse.data.length,
                     itemBuilder: (context, index) {
                       if (apiResponse.data[index].name != null) {
                         return GestureDetector(
+                          //passing chosen Artist object to ArtistDetailPage
                           onTap: () => Navigator.pushNamed(context, '/artistDetailPage', arguments: {'artist': apiResponse.data[index]} ),
                           child: ListTile(
                             title: Text(apiResponse.data[index].name),
                           ),
                         );
                       } else {
-                        return Text("No Artist");
+                        return const Text("No Artist");
                       }
                     },
                   ),
@@ -61,27 +76,15 @@ class ArtistList extends StatelessWidget {
           ),
         );
       case Status.ERROR:
-        return Center(
+        return const Center(
           child: Text('Please try again later!!!'),
         );
       case Status.INITIAL:
       default:
-        return Center(
+        return const Center(
           child: Text('Search Artist'),
         );
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<ArtistViewModel>(
-        builder: (context, artistViewModel, child) {
-      return Container(
-        child: buildArtistListWidget(
-          context,
-          artistViewModel.response,
-        ),
-      );
-    });
-  }
 }

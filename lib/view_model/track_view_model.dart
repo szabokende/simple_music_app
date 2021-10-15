@@ -4,19 +4,13 @@ import 'package:simple_music_app/model/models/track.dart';
 import 'package:simple_music_app/model/repositories/track_repository.dart';
 
 class TrackViewModel with ChangeNotifier {
+  //This class exposes the response from the API as an Track list
   ApiResponse _apiResponse = ApiResponse.initial('initial state');
-
-  Track? _track;
 
   ApiResponse get response {
     return _apiResponse;
   }
 
-  Track? get track {
-    return _track;
-  }
-
-  /// Call the  service and gets the data of requested track
   Future<void> fetchTrackData(String keyWord) async {
     try {
       List<Track> trackList = await TrackRepository().fetchTrackList(keyWord);

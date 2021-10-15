@@ -1,10 +1,12 @@
-import 'package:simple_music_app/model/models/artist.dart';
+
 import 'package:simple_music_app/model/models/track.dart';
 import 'package:simple_music_app/model/services/service.dart';
+// ignore: library_prefixes
 import 'package:simple_music_app/utils/constants.dart' as Constants;
 
+// This class makes a request to the last.fm API using the service class and then converts the API response json into a track list
 class TrackRepository {
-  Service _service = Service();
+  final Service _service = Service();
 
   Future<List<Track>> fetchTrackList(String keyWord) async {
     Uri uri = Uri.http(

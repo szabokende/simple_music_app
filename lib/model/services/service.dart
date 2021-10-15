@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:meta/meta.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:simple_music_app/model/apis/app_exception.dart';
 
 class Service {
+  //makes a request to the API and returns json
   Future<dynamic> get(Uri url) async {
     dynamic responseJson;
     try {
@@ -17,7 +16,7 @@ class Service {
     return responseJson;
   }
 
-  @visibleForTesting
+//returns json or throws exception
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
