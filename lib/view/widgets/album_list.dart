@@ -7,9 +7,9 @@ import 'package:simple_music_app/view_model/artist_view_model.dart';
 
 class AlbumList extends StatelessWidget {
   Widget buildAlbumListWidget(
-      BuildContext context,
-      ApiResponse apiResponse,
-      ) {
+    BuildContext context,
+    ApiResponse apiResponse,
+  ) {
     switch (apiResponse.status) {
       case Status.LOADING:
         return Center(
@@ -31,7 +31,7 @@ class AlbumList extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
-                      child: Text("Albums"),
+                      child: Text("Albums" ,style: Theme.of(context).textTheme.headline6,),
                     ),
                     FaIcon(FontAwesomeIcons.compactDisc)
                   ],
@@ -45,8 +45,13 @@ class AlbumList extends StatelessWidget {
                     itemCount: apiResponse.data.length,
                     itemBuilder: (context, index) {
                       if (apiResponse.data[index].name != null)
-                        return ListTile(
-                          title: Text(apiResponse.data[index].name),
+                        return GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                              context, '/albumDetailPage',
+                              arguments: {'album': apiResponse.data[index]}),
+                          child: ListTile(
+                            title: Text(apiResponse.data[index].name),
+                          ),
                         );
                       else {
                         return Text("No Albums");
@@ -72,14 +77,13 @@ class AlbumList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AlbumViewModel>(
-        builder: (context, albumViewModel, child) {
-          return Container(
-            child: buildAlbumListWidget(
-              context,
-              albumViewModel.response,
-            ),
-          );
-        });
+    return Consumer<AlbumViewModel>(builder: (context, albumViewModel, child) {
+      return Container(
+        child: buildAlbumListWidget(
+          context,
+          albumViewModel.response,
+        ),
+      );
+    });
   }
 }

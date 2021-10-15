@@ -32,7 +32,7 @@ class TrackList extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
-                      child: Text("Tracks"),
+                      child: Text("Tracks", style: Theme.of(context).textTheme.headline6,),
                     ),
                     FaIcon(FontAwesomeIcons.music)
                   ],
@@ -46,8 +46,13 @@ class TrackList extends StatelessWidget {
                     itemCount: apiResponse.data.length,
                     itemBuilder: (context, index) {
                       if (apiResponse.data[index].name != null)
-                        return ListTile(
-                          title: Text(apiResponse.data[index].name),
+                        return GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                              context, '/trackDetailPage',
+                              arguments: {'track': apiResponse.data[index]}),
+                          child: ListTile(
+                            title: Text(apiResponse.data[index].name),
+                          ),
                         );
                       else {
                         return Text("No tracks");
@@ -66,7 +71,7 @@ class TrackList extends StatelessWidget {
       case Status.INITIAL:
       default:
         return Center(
-          child: Text('Search the song by name'),
+          child: Text('Search a song by name'),
         );
     }
   }

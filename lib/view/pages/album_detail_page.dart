@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:simple_music_app/model/models/artist.dart';
+import 'package:simple_music_app/model/models/album.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
-class ArtistDetailPage extends StatelessWidget {
+class AlbumDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context)!.settings.arguments as Map;
-    Artist _artist = routeArgs['artist'];
+    Album _album = routeArgs['album'];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Artist detail Page'),),
+      appBar: AppBar(title: const Text('Album detail Page'),),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "Artist: " + _artist.name.toString(),
+              "Album: " + _album.name.toString(),
               style: Theme.of(context).textTheme.headline1,
             ),
             Text(
-              "Listeners: " + _artist.listeners.toString(),
+              "Artist: " + _album.artist.toString(),
               style: Theme.of(context).textTheme.headline3,
             ),
             TextButton(
-                onPressed: () => _launchLastFMProfile(_artist.url.toString()),
+                onPressed: () => _launchLastFMProfile(_album.url.toString()),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -40,8 +41,8 @@ class ArtistDetailPage extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Text("Visit Last.fm profile of " +
-                        _artist.name.toString(),style: TextStyle(fontSize: 12), ),
+                    child: Text("Visit the Last.fm page of " +
+                        _album.name.toString(),style: TextStyle(fontSize: 12), ),
                   ),
                 ))
           ],

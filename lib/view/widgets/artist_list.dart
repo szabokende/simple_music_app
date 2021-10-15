@@ -30,7 +30,7 @@ class ArtistList extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
-                      child: Text("Artists"),
+                      child: Text("Artists",style: Theme.of(context).textTheme.headline6,),
                     ),
                     FaIcon(FontAwesomeIcons.user)
                   ],
@@ -67,7 +67,7 @@ class ArtistList extends StatelessWidget {
       case Status.INITIAL:
       default:
         return Center(
-          child: Text('Search the song by Artist'),
+          child: Text('Search Artist'),
         );
     }
   }

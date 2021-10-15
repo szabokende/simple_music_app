@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:provider/provider.dart';
-import 'package:simple_music_app/model/apis/api_response.dart';
-import 'package:simple_music_app/model/models/artist.dart';
 import 'package:simple_music_app/view/widgets/album_list.dart';
 import 'package:simple_music_app/view/widgets/artist_list.dart';
 import 'package:simple_music_app/view/widgets/track_list.dart';
@@ -48,74 +44,6 @@ class _SearchPageState extends State<SearchPage> {
         break;
     }
   }
-/*
-  Widget getArtistListWidget(
-    BuildContext context,
-    ApiResponse apiResponse,
-    String listTitle,
-    FaIcon icon,
-  ) {
-    switch (apiResponse.status) {
-      case Status.LOADING:
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      case Status.COMPLETED:
-        return Flexible(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 5,
-              bottom: 5,
-              left: 10,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text(listTitle),
-                    ),
-                    icon
-                  ],
-                ),
-                Divider(
-                  thickness: 3,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    //physics: const NeverScrollableScrollPhysics(),
-                    itemCount: apiResponse.data.length,
-                    itemBuilder: (context, index) {
-                      if (apiResponse.data[index].name != null)
-                        return ListTile(
-                          title: Text(apiResponse.data[index].name),
-                        );
-                      else {
-                        return Text("No Artist");
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      case Status.ERROR:
-        return Center(
-          child: Text('Please try again later!!!'),
-        );
-      case Status.INITIAL:
-      default:
-        return Center(
-          child: Text('Search the song by Artist'),
-        );
-    }
-  }
-
- */
 
   Widget switchResultList() {
     switch (_searchType) {
@@ -138,9 +66,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final _inputController = TextEditingController();
-    // ApiResponse apiResponse = Provider.of<ArtistViewModel>(context).response;
-    // List<Artist> artistList = apiResponse.data as List<Artist>;
-    double width = MediaQuery.of(context).size.width;
     return Consumer<ArtistViewModel>(
         builder: (context, artistViewModel, child) {
       return Scaffold(
@@ -158,12 +83,12 @@ class _SearchPageState extends State<SearchPage> {
                       margin: const EdgeInsets.symmetric(horizontal: 20.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).accentColor.withAlpha(50),
-                        borderRadius: BorderRadius.circular(30.0),
+                       borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: TextField(
                         style: const TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.grey,
+                          fontSize: 20.0,
+                          color: Colors.teal,
                         ),
                         controller: _inputController,
                         onSubmitted: (keyWord) {
@@ -175,13 +100,12 @@ class _SearchPageState extends State<SearchPage> {
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
-
                           prefixIcon: Icon(
                             Icons.search,
                             color: Colors.grey,
                           ),
                           hintText:
-                              'Enter Artist Name', //TODO switch for hint text
+                              'Enter keyword',
                         ),
                       ),
                     ),
@@ -190,13 +114,11 @@ class _SearchPageState extends State<SearchPage> {
                     padding: EdgeInsets.only(right: 10),
                     child: DropdownButton<String>(
                       value: _searchType,
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
+                      style: TextStyle(color: Theme.of(context).primaryColor),
                       underline: Container(
                         height: 2,
-                        color: Colors.deepPurpleAccent,
+                        color: Theme.of(context).primaryColor,
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
